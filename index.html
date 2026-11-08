@@ -3,205 +3,148 @@
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080d19">
-<meta name="description" content="MYTV STREAM - Direktori TV Malaysia dan Live Player">
+<meta name="description" content="MYTV STREAM - Live TV Malaysia">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="icon.svg">
 <title>MYTV STREAM</title>
 
 <style>
 :root{
- --bg:#080d19;
- --panel:#111a2b;
- --panel2:#17243a;
- --text:#f5f7fb;
- --muted:#94a3b8;
- --blue:#3987ff;
- --green:#20cf91;
- --border:rgba(255,255,255,.08);
+--bg:#080d19;--panel:#111a2b;--panel2:#17243a;
+--text:#f5f7fb;--muted:#94a3b8;--blue:#3987ff;
+--border:rgba(255,255,255,.09);
 }
 *{box-sizing:border-box}
 body{
- margin:0;background:var(--bg);color:var(--text);
- font-family:Arial,sans-serif;
+margin:0;background:var(--bg);color:var(--text);
+font-family:Arial,sans-serif
 }
 button,input{font:inherit}
 button{cursor:pointer}
 header{
- padding:16px 5%;display:flex;align-items:center;
- justify-content:space-between;
- border-bottom:1px solid var(--border);
- background:#0b1220;position:sticky;top:0;z-index:10;
+position:sticky;top:0;z-index:10;
+display:flex;justify-content:space-between;align-items:center;
+padding:15px 5%;background:#0b1220;
+border-bottom:1px solid var(--border)
 }
-.brand{display:flex;align-items:center;gap:11px;font-size:20px;font-weight:900}
+.brand{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:900}
 .brand span{color:#55a0ff}
 .logo{
- width:42px;height:42px;border-radius:13px;
- display:grid;place-items:center;
- background:linear-gradient(135deg,#247cff,#12c8bd);
- font-size:23px;
+width:42px;height:42px;border-radius:13px;
+display:grid;place-items:center;
+background:linear-gradient(135deg,#247cff,#12c8bd);
+font-size:23px
 }
-.install{
- border:0;border-radius:10px;background:var(--blue);
- color:white;padding:11px 14px;font-weight:bold;
+.install,.primary{
+border:0;border-radius:10px;background:var(--blue);
+color:white;padding:12px 15px;font-weight:bold
 }
 main{max-width:1200px;margin:auto;padding:25px 5% 100px}
 .hero{
- padding:32px 25px;border:1px solid var(--border);
- border-radius:23px;
- background:radial-gradient(circle at 85% 20%,#204a80 0,transparent 38%),
- linear-gradient(120deg,#14243c,#10192a);
+padding:30px 23px;border:1px solid var(--border);
+border-radius:22px;
+background:radial-gradient(circle at 85% 20%,#204a80,transparent 40%),
+linear-gradient(120deg,#14243c,#10192a)
 }
-.hero h1{font-size:clamp(28px,5vw,44px);margin:12px 0}
-.hero p{color:#c1cddd;max-width:550px;line-height:1.6}
-.live{
- display:inline-flex;align-items:center;gap:8px;
- color:#8ef3c4;font-size:12px;font-weight:bold;letter-spacing:1px;
-}
-.dot{
- width:8px;height:8px;background:#20df91;
- border-radius:50%;box-shadow:0 0 10px #20df91;
-}
-.stats{
- display:grid;grid-template-columns:repeat(3,1fr);
- gap:12px;margin:20px 0 30px;
-}
-.stat{
- background:var(--panel);padding:17px;
- border:1px solid var(--border);border-radius:15px;
-}
-.stat b{font-size:23px;display:block}
+.live{color:#8ef3c4;font-size:12px;font-weight:bold;letter-spacing:1px}
+.hero h1{font-size:clamp(28px,5vw,42px);margin:15px 0}
+.hero p{color:#c1cddd;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0 30px}
+.stat{background:var(--panel);padding:15px;border:1px solid var(--border);border-radius:14px}
+.stat b{font-size:22px;display:block}
 .stat small{color:var(--muted)}
-.section-head{
- display:flex;align-items:center;justify-content:space-between;
- gap:10px;margin:30px 0 16px;
-}
-.section-head h2{font-size:21px;margin:0}
+h2{font-size:21px}
 .search{
- width:100%;padding:15px 17px;color:white;
- background:var(--panel);border:1px solid var(--border);
- border-radius:13px;outline:none;
+width:100%;padding:15px;background:var(--panel);
+border:1px solid var(--border);border-radius:12px;
+color:white;outline:none
 }
-.search:focus{border-color:var(--blue)}
-.filters{
- display:flex;gap:9px;overflow-x:auto;padding:15px 0;
-}
+.filters{display:flex;gap:9px;overflow-x:auto;padding:15px 0}
 .filter{
- white-space:nowrap;border:1px solid var(--border);
- background:var(--panel);color:#b7c3d5;
- padding:10px 17px;border-radius:30px;
+white-space:nowrap;padding:10px 16px;border-radius:30px;
+background:var(--panel);color:#b7c3d5;
+border:1px solid var(--border)
 }
-.filter.active{color:white;background:#245eac;border-color:var(--blue)}
+.filter.active{background:#245eac;color:white}
 .channels{
- display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
- gap:14px;
+display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:14px
 }
-.channel{
- background:var(--panel);border:1px solid var(--border);
- border-radius:17px;overflow:hidden;transition:.2s;
+.channel{background:var(--panel);border:1px solid var(--border);border-radius:17px;overflow:hidden}
+.art{
+height:105px;display:grid;place-items:center;font-size:38px;
+background:linear-gradient(135deg,#1a3559,#18243a)
 }
-.channel:hover{transform:translateY(-3px);border-color:var(--blue)}
-.channel-art{
- height:105px;display:grid;place-items:center;
- font-size:35px;position:relative;
- background:linear-gradient(135deg,#1a3559,#18243a);
-}
-.channel-art small{
- position:absolute;bottom:9px;right:10px;
- font-size:9px;color:#a9bed8;
-}
-.channel-info{padding:13px}
-.channel-info h3{margin:0 0 6px;font-size:15px}
-.channel-info p{margin:0 0 12px;color:var(--muted);font-size:11px}
-.channel-actions{display:flex;gap:7px}
+.info{padding:13px}
+.info h3{margin:0 0 6px}
+.info p{font-size:12px;color:var(--muted)}
+.actions{display:flex;gap:7px}
 .watch{
- flex:1;border:0;border-radius:8px;background:var(--blue);
- color:white;padding:11px 5px;font-size:12px;font-weight:bold;
+flex:1;background:var(--blue);color:white;
+border:0;border-radius:8px;padding:11px 5px;font-weight:bold
 }
 .fav{
- width:40px;border:1px solid var(--border);
- border-radius:8px;background:var(--panel2);color:white;font-size:19px;
+width:40px;border:1px solid var(--border);
+border-radius:8px;background:var(--panel2);color:white;font-size:19px
 }
 .fav.selected{color:#ffce5d}
-.empty{grid-column:1/-1;text-align:center;padding:35px;color:var(--muted)}
-.notice{
- margin-top:25px;padding:15px;border:1px solid var(--border);
- border-radius:13px;color:var(--muted);font-size:12px;line-height:1.7;
+.empty{grid-column:1/-1;text-align:center;padding:30px;color:var(--muted)}
+.notice{margin-top:25px;padding:15px;border:1px solid var(--border);border-radius:12px;color:var(--muted);font-size:12px;line-height:1.7}
+footer{text-align:center;color:#64748b;padding:25px;font-size:12px}
+
+/* PLAYER */
+.player{
+position:fixed;inset:0;background:#080d19;
+z-index:100;display:none;overflow-y:auto
 }
-footer{
- text-align:center;color:#64748b;padding:25px;font-size:12px;
- border-top:1px solid var(--border);
+.player.show{display:block}
+.player-head{
+position:sticky;top:0;background:#111a2b;
+padding:15px;display:flex;justify-content:space-between;
+align-items:center;border-bottom:1px solid var(--border);z-index:2
 }
+.close{
+background:#263750;color:white;border:0;
+border-radius:9px;padding:10px 15px
+}
+.player-content{max-width:1000px;margin:auto;padding:18px}
+.video-box{
+width:100%;aspect-ratio:16/9;background:#000;
+border-radius:13px;overflow:hidden;position:relative
+}
+.video-box iframe{width:100%;height:100%;border:0;background:#000}
+.video-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.video-actions button,.video-actions a{
+padding:12px 15px;border:0;border-radius:9px;
+background:#245eac;color:white;text-decoration:none;font-weight:bold
+}
+.player-list{
+display:grid;grid-template-columns:repeat(3,1fr);
+gap:10px;margin-top:15px
+}
+.player-list button{
+padding:13px 5px;background:var(--panel2);
+border:1px solid var(--border);color:white;border-radius:9px
+}
+.player-list button.active{background:#245eac;border-color:var(--blue)}
+.help{font-size:12px;color:var(--muted);line-height:1.6;margin-top:17px}
 .bottom{
- position:fixed;bottom:0;left:0;right:0;
- display:flex;justify-content:space-around;
- padding:12px 5px calc(12px + env(safe-area-inset-bottom));
- background:#10192a;border-top:1px solid var(--border);z-index:20;
+position:fixed;bottom:0;left:0;right:0;
+display:flex;justify-content:space-around;
+padding:12px 5% calc(12px + env(safe-area-inset-bottom));
+background:#10192a;border-top:1px solid var(--border);z-index:20
 }
 .bottom button{
- background:none;border:0;color:#94a3b8;font-size:11px;
- display:grid;gap:4px;justify-items:center;
+background:none;border:0;color:#94a3b8;
+font-size:11px;display:grid;gap:4px;justify-items:center
 }
+.bottom button span{font-size:19px}
 .bottom button.active{color:#60a5fa}
-.bottom span{font-size:19px}
-
-/* LIVE PLAYER */
-.player-modal{
- position:fixed;inset:0;z-index:100;
- background:#080d19;display:none;overflow-y:auto;
-}
-.player-modal.show{display:block}
-.player-header{
- display:flex;justify-content:space-between;align-items:center;
- padding:16px;background:#111a2b;
- border-bottom:1px solid var(--border);
- position:sticky;top:0;z-index:2;
-}
-.player-header button{
- background:#23334c;color:white;border:0;
- border-radius:9px;padding:10px 15px;
-}
-.player-body{max-width:950px;margin:auto;padding:18px}
-.video-frame{
- width:100%;aspect-ratio:16/9;background:#000;
- border-radius:15px;overflow:hidden;position:relative;
-}
-.video-frame video{
- width:100%;height:100%;object-fit:contain;background:#000;
-}
-.player-message{
- min-height:100%;height:100%;padding:20px;
- display:flex;flex-direction:column;align-items:center;
- justify-content:center;text-align:center;color:white;
-}
-.player-message p{color:#94a3b8;line-height:1.6;max-width:500px}
-.player-button{
- display:inline-block;background:#3987ff;color:white;
- padding:13px 20px;border-radius:10px;text-decoration:none;
- font-weight:bold;margin-top:10px;
-}
-.player-channels{
- display:grid;grid-template-columns:repeat(3,1fr);
- gap:10px;margin-top:15px;
-}
-.player-channel{
- padding:14px 5px;background:#17243a;
- border:1px solid #293b56;border-radius:10px;
- color:white;font-weight:bold;
-}
-.player-channel.active{background:#245eac;border-color:#3987ff}
-.player-help{
- color:#94a3b8;font-size:12px;line-height:1.6;
- margin-top:16px;
-}
-.hidden{display:none!important}
 @media(min-width:750px){.bottom{display:none}}
 @media(max-width:400px){
- .channels{grid-template-columns:repeat(2,minmax(0,1fr))}
- .stats{gap:7px}.stat{padding:12px}.stat b{font-size:19px}
- header{padding:13px 4%}
- .player-channels{grid-template-columns:repeat(2,1fr)}
+.channels{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats{gap:7px}.stat{padding:12px}.stat b{font-size:19px}
+.player-list{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -217,46 +160,40 @@ footer{
 </header>
 
 <main>
- <section class="hero">
-  <div class="live"><i class="dot"></i> MALAYSIA LIVE TV</div>
-  <h1>Hiburan Malaysia,<br>Di Hujung Jari.</h1>
-  <p>Nikmati akses mudah kepada saluran TV Malaysia melalui platform rasmi.</p>
- </section>
+<section class="hero">
+ <div class="live">● MALAYSIA LIVE TV</div>
+ <h1>Hiburan Malaysia,<br>Di Hujung Jari.</h1>
+ <p>Platform akses siaran TV Malaysia melalui sumber rasmi.</p>
+</section>
 
- <section class="stats">
-  <div class="stat"><b id="totalCount">0</b><small>Saluran TV</small></div>
-  <div class="stat"><b>24/7</b><small>Akses platform</small></div>
-  <div class="stat"><b>FREE</b><small>Penggunaan aplikasi</small></div>
- </section>
+<section class="stats">
+ <div class="stat"><b id="total">0</b><small>Saluran TV</small></div>
+ <div class="stat"><b>24/7</b><small>Akses platform</small></div>
+ <div class="stat"><b>FREE</b><small>Penggunaan</small></div>
+</section>
 
- <div class="section-head"><h2 id="sectionTitle">Saluran TV</h2></div>
+<h2 id="sectionTitle">Saluran TV</h2>
+<input class="search" id="search" placeholder="🔍 Cari saluran TV...">
 
- <input class="search" id="search" placeholder="🔍 Cari saluran TV Malaysia...">
+<div class="filters">
+ <button class="filter active" data-cat="all">Semua</button>
+ <button class="filter" data-cat="rtm">RTM</button>
+ <button class="filter" data-cat="media">Media Prima</button>
+ <button class="filter" data-cat="news">Berita</button>
+ <button class="filter" data-cat="other">Lain-lain</button>
+ <button class="filter" data-cat="fav">★ Favourite</button>
+</div>
 
- <div class="filters" id="filters">
-  <button class="filter active" data-cat="all">Semua</button>
-  <button class="filter" data-cat="rtm">RTM</button>
-  <button class="filter" data-cat="media">Media Prima</button>
-  <button class="filter" data-cat="news">Berita</button>
-  <button class="filter" data-cat="other">Lain-lain</button>
-  <button class="filter" data-cat="fav">Kegemaran ★</button>
- </div>
+<div class="channels" id="channels"></div>
 
- <div class="channels" id="channels"></div>
-
- <div class="notice">
-  <b>Maklumat siaran:</b><br>
-  MYTV STREAM ialah aplikasi direktori dan pemain untuk sumber
-  siaran yang dibenarkan. Sesetengah saluran memerlukan akaun
-  atau aplikasi penyedia. Ketersediaan siaran tertakluk kepada
-  penyiar masing-masing.
- </div>
+<div class="notice">
+ <b>Nota:</b> MYTV STREAM menggunakan sumber rasmi penyiar.
+ Sesetengah saluran memerlukan akaun atau aplikasi penyedia.
+ Ketersediaan tontonan bergantung kepada kebenaran penyiar.
+</div>
 </main>
 
-<footer>
- MYTV STREAM © 2026<br>
- Dibangunkan untuk kemudahan rakyat Malaysia.
-</footer>
+<footer>MYTV STREAM © 2026<br>Malaysian Live TV Platform</footer>
 
 <nav class="bottom">
  <button class="active" data-nav="all"><span>⌂</span>Home</button>
@@ -265,264 +202,191 @@ footer{
  <button data-nav="fav"><span>★</span>Favourite</button>
 </nav>
 
-<!-- LIVE PLAYER MODAL -->
-<section class="player-modal" id="playerModal">
- <div class="player-header">
+<!-- LIVE PLAYER -->
+<section class="player" id="player">
+ <div class="player-head">
   <strong>▶ MYTV STREAM LIVE</strong>
-  <button onclick="closePlayer()">✕ Tutup</button>
+  <button class="close" onclick="closePlayer()">✕ Tutup</button>
  </div>
 
- <div class="player-body">
-  <div class="live"><i class="dot"></i> LIVE PLAYER</div>
+ <div class="player-content">
+  <div class="live">● LIVE PLAYER</div>
   <h2 id="playingName">TV1</h2>
 
-  <div class="video-frame" id="videoFrame">
-   <div class="player-message">
-    <h2>📺</h2>
-    <p>Pilih saluran untuk memulakan tontonan.</p>
-   </div>
+  <div class="video-box" id="videoBox"></div>
+
+  <div class="video-actions">
+   <button onclick="fullscreenPlayer()">⛶ Fullscreen</button>
+   <a id="officialLink" href="#" target="_blank" rel="noopener">Buka laman rasmi ↗</a>
   </div>
 
   <h3>Pilih Saluran</h3>
-  <div class="player-channels" id="playerChannels"></div>
+  <div class="player-list" id="playerList"></div>
 
-  <p class="player-help">
-   Jika saluran tidak boleh dimainkan dalam pemain ini,
-   gunakan pautan penyiar rasmi. Sesetengah penyiar
-   menyekat pemain luar atau memerlukan log masuk.
+  <p class="help">
+   Pemain ini menggunakan halaman rasmi RTMKlik.
+   Jika paparan video tidak muncul, kemungkinan penyiar
+   menyekat paparan iframe. Gunakan butang laman rasmi.
   </p>
  </div>
 </section>
 
-<!-- HLS PLAYER LIBRARY -->
-<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
 <script>
-/*
-  PENTING:
-  streamUrl dibiarkan kosong sehingga URL HLS rasmi yang
-  dibenarkan untuk playback dalam aplikasi diperoleh.
-  Jangan masukkan URL stream tidak sah atau terlindung.
-*/
-
-const channels = [
- {name:"TV1",cat:"rtm",provider:"RTMKlik",icon:"📡",
-  url:"https://rtmklik.rtm.gov.my/",streamUrl:""},
- {name:"TV2",cat:"rtm",provider:"RTMKlik",icon:"📡",
-  url:"https://rtmklik.rtm.gov.my/",streamUrl:""},
- {name:"TV OKEY",cat:"rtm",provider:"RTMKlik",icon:"🌏",
-  url:"https://rtmklik.rtm.gov.my/",streamUrl:""},
- {name:"Berita RTM",cat:"news",provider:"RTMKlik",icon:"📰",
-  url:"https://berita.rtm.gov.my/live-streaming/",streamUrl:""},
- {name:"Sukan RTM",cat:"rtm",provider:"RTMKlik",icon:"⚽",
-  url:"https://rtmklik.rtm.gov.my/",streamUrl:""},
- {name:"TV6",cat:"rtm",provider:"RTMKlik",icon:"🎞️",
-  url:"https://rtmklik.rtm.gov.my/",streamUrl:""},
- {name:"TV3",cat:"media",provider:"Tonton",icon:"📡",
-  url:"https://browse.tonton.com.my/live/tv3",streamUrl:""},
- {name:"8TV",cat:"media",provider:"Tonton",icon:"🎬",
-  url:"https://browse.tonton.com.my/live/8tv",streamUrl:""},
- {name:"TV9",cat:"media",provider:"Tonton",icon:"📺",
-  url:"https://browse.tonton.com.my/live/tv9",streamUrl:""},
- {name:"DidikTV",cat:"media",provider:"Tonton",icon:"🎓",
-  url:"https://browse.tonton.com.my/live",streamUrl:""},
- {name:"Awesome TV",cat:"other",provider:"Awesome TV",icon:"✨",
-  url:"https://awesometv.my/livetv/details/awesome-tv/28",streamUrl:""},
- {name:"BERNAMA TV",cat:"news",provider:"BERNAMA",icon:"📰",
-  url:"https://www.bernama.com/tv/",streamUrl:""}
+const RTM_HOME="https://rtmklik.rtm.gov.my/";
+const channels=[
+ {name:"TV1",cat:"rtm",provider:"RTMKlik",icon:"📺",url:"https://rtmklik.rtm.gov.my/live/tv/tv1"},
+ {name:"TV2",cat:"rtm",provider:"RTMKlik",icon:"📺",url:RTM_HOME},
+ {name:"TV OKEY",cat:"rtm",provider:"RTMKlik",icon:"🌏",url:RTM_HOME},
+ {name:"TV6",cat:"rtm",provider:"RTMKlik",icon:"🎞️",url:RTM_HOME},
+ {name:"Berita RTM",cat:"news",provider:"RTMKlik",icon:"📰",url:RTM_HOME},
+ {name:"Sukan RTM",cat:"rtm",provider:"RTMKlik",icon:"⚽",url:RTM_HOME},
+ {name:"TV3",cat:"media",provider:"Tonton",icon:"📡",url:"https://browse.tonton.com.my/live"},
+ {name:"8TV",cat:"media",provider:"Tonton",icon:"🎬",url:"https://browse.tonton.com.my/live"},
+ {name:"TV9",cat:"media",provider:"Tonton",icon:"📺",url:"https://browse.tonton.com.my/live"},
+ {name:"DidikTV",cat:"media",provider:"Tonton",icon:"🎓",url:"https://browse.tonton.com.my/live"},
+ {name:"Awesome TV",cat:"other",provider:"Awesome TV",icon:"✨",url:"https://awesometv.my/"},
+ {name:"BERNAMA TV",cat:"news",provider:"BERNAMA",icon:"📰",url:"https://www.bernama.com/tv/"}
 ];
 
-const container=document.getElementById("channels");
-const search=document.getElementById("search");
-const title=document.getElementById("sectionTitle");
 let category="all";
 let favorites=JSON.parse(localStorage.getItem("mytv-favs")||"[]");
-let hlsPlayer=null;
 
-document.getElementById("totalCount").textContent=channels.length;
+const channelsBox=document.getElementById("channels");
+const search=document.getElementById("search");
+const player=document.getElementById("player");
+const videoBox=document.getElementById("videoBox");
+
+document.getElementById("total").textContent=channels.length;
 
 function render(){
- const query=search.value.toLowerCase().trim();
+ const q=search.value.toLowerCase().trim();
 
  const filtered=channels.filter(c=>{
-  const matchCat=category==="all" ||
-   (category==="fav"
-    ?favorites.includes(c.name)
-    :c.cat===category);
+  const match=category==="all" ||
+   (category==="fav"?favorites.includes(c.name):c.cat===category);
 
-  return matchCat &&
-   (c.name.toLowerCase().includes(query) ||
-    c.provider.toLowerCase().includes(query));
+  return match &&
+   (c.name.toLowerCase().includes(q) ||
+    c.provider.toLowerCase().includes(q));
  });
 
- title.textContent=category==="fav"
-  ?"Saluran Kegemaran":"Saluran TV";
+ document.getElementById("sectionTitle").textContent=
+  category==="fav"?"Saluran Kegemaran":"Saluran TV";
 
- container.innerHTML="";
+ channelsBox.innerHTML="";
 
  if(!filtered.length){
-  container.innerHTML='<div class="empty">Tiada saluran dijumpai.</div>';
+  channelsBox.innerHTML='<div class="empty">Tiada saluran dijumpai.</div>';
   return;
  }
 
  filtered.forEach(c=>{
-  const fav=favorites.includes(c.name);
+  const isFav=favorites.includes(c.name);
   const card=document.createElement("article");
   card.className="channel";
 
   card.innerHTML=`
-   <div class="channel-art">
-    ${c.icon}<small>TV MALAYSIA</small>
-   </div>
-   <div class="channel-info">
+   <div class="art">${c.icon}</div>
+   <div class="info">
     <h3>${c.name}</h3>
     <p>${c.provider}</p>
-    <div class="channel-actions">
+    <div class="actions">
      <button class="watch">▶ Tonton</button>
-     <button class="fav ${fav?"selected":""}"
-      aria-label="Kegemaran">${fav?"★":"☆"}</button>
+     <button class="fav ${isFav?"selected":""}">${isFav?"★":"☆"}</button>
     </div>
    </div>`;
 
-  card.querySelector(".watch").addEventListener("click",()=>{
-   openPlayer(c.name);
-  });
+  card.querySelector(".watch").onclick=()=>openPlayer(c.name);
 
-  card.querySelector(".fav").addEventListener("click",()=>{
+  card.querySelector(".fav").onclick=()=>{
    favorites=favorites.includes(c.name)
     ?favorites.filter(x=>x!==c.name)
     :[...favorites,c.name];
 
    localStorage.setItem("mytv-favs",JSON.stringify(favorites));
    render();
-  });
+  };
 
-  container.appendChild(card);
+  channelsBox.appendChild(card);
  });
-}
-
-document.querySelectorAll(".filter").forEach(btn=>{
- btn.addEventListener("click",()=>{
-  category=btn.dataset.cat;
-
-  document.querySelectorAll(".filter").forEach(b=>
-   b.classList.remove("active"));
-
-  btn.classList.add("active");
-  render();
- });
-});
-
-search.addEventListener("input",render);
-
-document.querySelectorAll("[data-nav]").forEach(btn=>{
- btn.addEventListener("click",()=>{
-  category=btn.dataset.nav;
-
-  document.querySelectorAll(".filter").forEach(b=>{
-   b.classList.toggle("active",b.dataset.cat===category);
-  });
-
-  document.querySelectorAll("[data-nav]").forEach(b=>
-   b.classList.remove("active"));
-
-  btn.classList.add("active");
-  render();
-  window.scrollTo({top:300,behavior:"smooth"});
- });
-});
-
-function stopStream(){
- if(hlsPlayer){
-  hlsPlayer.destroy();
-  hlsPlayer=null;
- }
 }
 
 function openPlayer(name){
- const modal=document.getElementById("playerModal");
- const frame=document.getElementById("videoFrame");
- const channel=channels.find(c=>c.name===name);
+ const c=channels.find(x=>x.name===name);
+ if(!c)return;
 
- if(!channel)return;
+ document.getElementById("playingName").textContent=c.name;
+ document.getElementById("officialLink").href=c.url;
 
- stopStream();
- modal.classList.add("show");
+ videoBox.innerHTML="";
+
+ const iframe=document.createElement("iframe");
+ iframe.src=c.url;
+ iframe.title=c.name+" Live";
+ iframe.allow="autoplay; fullscreen; picture-in-picture";
+ iframe.allowFullscreen=true;
+ iframe.referrerPolicy="strict-origin-when-cross-origin";
+ videoBox.appendChild(iframe);
+
+ player.classList.add("show");
  document.body.style.overflow="hidden";
- document.getElementById("playingName").textContent=channel.name;
 
- frame.innerHTML="";
-
- if(channel.streamUrl){
-  const video=document.createElement("video");
-  video.controls=true;
-  video.autoplay=true;
-  video.playsInline=true;
-  video.setAttribute("controlsList","nodownload");
-  frame.appendChild(video);
-
-  if(window.Hls && Hls.isSupported()){
-   hlsPlayer=new Hls();
-   hlsPlayer.loadSource(channel.streamUrl);
-   hlsPlayer.attachMedia(video);
-   hlsPlayer.on(Hls.Events.ERROR,(event,data)=>{
-    if(data.fatal){
-     showFallback(channel,"Stream gagal dimainkan. Cuba sumber rasmi.");
-    }
-   });
-  }else if(video.canPlayType("application/vnd.apple.mpegurl")){
-   video.src=channel.streamUrl;
-   video.play().catch(()=>{});
-  }else{
-   showFallback(channel,"Pelayar ini tidak menyokong format siaran.");
-  }
- }else{
-  showFallback(channel,
-   "Saluran ini belum mempunyai URL pemain HLS rasmi yang disahkan. Gunakan platform penyiar untuk menonton.");
- }
-
- renderPlayerChannels(name);
+ renderPlayerList(name);
 }
 
-function showFallback(channel,message){
- const frame=document.getElementById("videoFrame");
- stopStream();
-
- frame.innerHTML=`
-  <div class="player-message">
-   <div style="font-size:42px">📺</div>
-   <h3>${channel.name}</h3>
-   <p>${message}</p>
-   <a class="player-button"
-    href="${channel.url}"
-    target="_blank"
-    rel="noopener noreferrer">
-    Buka Siaran Rasmi ↗
-   </a>
-  </div>`;
-}
-
-function renderPlayerChannels(current){
- const list=document.getElementById("playerChannels");
+function renderPlayerList(current){
+ const list=document.getElementById("playerList");
  list.innerHTML="";
 
- channels.forEach(channel=>{
-  const button=document.createElement("button");
-  button.className="player-channel"+
-   (channel.name===current?" active":"");
-
-  button.textContent=channel.name;
-  button.onclick=()=>openPlayer(channel.name);
-  list.appendChild(button);
+ channels.forEach(c=>{
+  const btn=document.createElement("button");
+  btn.textContent=c.name;
+  if(c.name===current)btn.classList.add("active");
+  btn.onclick=()=>openPlayer(c.name);
+  list.appendChild(btn);
  });
 }
 
 function closePlayer(){
- stopStream();
- document.getElementById("playerModal").classList.remove("show");
- document.getElementById("videoFrame").innerHTML="";
+ player.classList.remove("show");
+ videoBox.innerHTML="";
  document.body.style.overflow="";
 }
+
+function fullscreenPlayer(){
+ const frame=videoBox.querySelector("iframe");
+ if(frame && frame.requestFullscreen){
+  frame.requestFullscreen().catch(()=>{
+   alert("Fullscreen tidak disokong oleh pemain ini.");
+  });
+ }else{
+  alert("Fullscreen tidak tersedia pada halaman ini.");
+ }
+}
+
+document.querySelectorAll(".filter").forEach(btn=>{
+ btn.onclick=()=>{
+  category=btn.dataset.cat;
+  document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  render();
+ };
+});
+
+search.oninput=render;
+
+document.querySelectorAll("[data-nav]").forEach(btn=>{
+ btn.onclick=()=>{
+  category=btn.dataset.nav;
+  document.querySelectorAll(".filter").forEach(b=>{
+   b.classList.toggle("active",b.dataset.cat===category);
+  });
+  document.querySelectorAll("[data-nav]").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  render();
+  window.scrollTo({top:300,behavior:"smooth"});
+ };
+});
 
 document.addEventListener("keydown",e=>{
  if(e.key==="Escape")closePlayer();
@@ -535,15 +399,15 @@ window.addEventListener("beforeinstallprompt",e=>{
  installPrompt=e;
 });
 
-document.getElementById("installBtn").addEventListener("click",async()=>{
+document.getElementById("installBtn").onclick=async()=>{
  if(installPrompt){
   installPrompt.prompt();
   await installPrompt.userChoice;
   installPrompt=null;
  }else{
-  alert("Untuk install, buka menu Chrome ⋮ dan pilih Install app atau Add to Home screen.");
+  alert("Buka menu Chrome ⋮ dan pilih Install app atau Add to Home screen.");
  }
-});
+};
 
 if("serviceWorker" in navigator){
  window.addEventListener("load",()=>{
