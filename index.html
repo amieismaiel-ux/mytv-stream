@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d19">
+<meta name="description" content="MYTV STREAM - Pusat siaran TV Malaysia percuma.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>MYTV STREAM | Live TV Malaysia</title>
+
+<style>
+:root{
+  --bg:#080d19;
+  --panel:#111a2b;
+  --panel2:#17243a;
+  --text:#f5f7fb;
+  --muted:#94a3b8;
+  --blue:#3987ff;
+  --green:#20cf91;
+  --border:rgba(255,255,255,.08);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+header{
+  padding:18px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  background:#0b1220;
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.brand{
+  display:flex;align-items:center;gap:11px;
+  font-size:20px;font-weight:900;
+}
+.logo{
+  width:42px;height:42px;border-radius:13px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#247cff,#12c8bd);
+  font-size:23px;
+}
+.brand span{color:#55a0ff}
+.install{
+  border:0;border-radius:10px;
+  background:var(--blue);color:white;
+  padding:11px 15px;font-weight:bold;
+}
+main{max-width:1200px;margin:auto;padding:25px 5% 90px}
+.hero{
+  padding:32px 25px;
+  border:1px solid var(--border);
+  border-radius:23px;
+  background:
+  radial-gradient(circle at 85% 20%,#204a80 0,transparent 38%),
+  linear-gradient(120deg,#14243c,#10192a);
+  position:relative;overflow:hidden;
+}
+.hero h1{font-size:clamp(28px,5vw,44px);margin:0 0 12px}
+.hero p{color:#c1cddd;max-width:540px;line-height:1.6}
+.live{
+  display:inline-flex;align-items:center;gap:8px;
+  color:#8ef3c4;font-size:12px;font-weight:bold;
+  letter-spacing:1px;
+}
+.dot{
+  width:8px;height:8px;background:#20df91;
+  border-radius:50%;box-shadow:0 0 10px #20df91;
+}
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:12px;margin:20px 0 30px;
+}
+.stat{
+  background:var(--panel);padding:17px;
+  border:1px solid var(--border);border-radius:15px;
+}
+.stat b{font-size:23px;display:block}
+.stat small{color:var(--muted)}
+.section-head{
+  display:flex;align-items:center;
+  justify-content:space-between;gap:10px;
+  margin:30px 0 16px;
+}
+.section-head h2{font-size:21px;margin:0}
+.search{
+  width:100%;padding:15px 17px;
+  color:white;background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:13px;outline:none;
+}
+.search:focus{border-color:var(--blue)}
+.filters{
+  display:flex;gap:9px;overflow-x:auto;
+  padding:15px 0;
+}
+.filter{
+  white-space:nowrap;border:1px solid var(--border);
+  background:var(--panel);color:#b7c3d5;
+  padding:10px 17px;border-radius:30px;
+}
+.filter.active{
+  color:white;background:#245eac;
+  border-color:#3987ff;
+}
+.channels{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
+  gap:14px;
+}
+.channel{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:17px;overflow:hidden;
+  transition:.2s;
+}
+.channel:hover{
+  transform:translateY(-3px);
+  border-color:#3987ff;
+}
+.channel-art{
+  height:105px;
+  display:grid;place-items:center;
+  font-size:35px;
+  background:linear-gradient(135deg,#1a3559,#18243a);
+  position:relative;
+}
+.channel-art small{
+  position:absolute;bottom:9px;right:10px;
+  font-size:9px;color:#a9bed8;
+}
+.channel-info{padding:13px}
+.channel-info h3{margin:0 0 6px;font-size:15px}
+.channel-info p{margin:0 0 12px;color:var(--muted);font-size:11px}
+.channel-actions{display:flex;gap:7px}
+.watch{
+  flex:1;border:0;border-radius:8px;
+  background:var(--blue);color:white;
+  padding:10px 5px;font-size:12px;font-weight:bold;
+}
+.fav{
+  width:38px;border:1px solid var(--border);
+  border-radius:8px;background:var(--panel2);
+  color:white;font-size:17px;
+}
+.fav.selected{color:#ffce5d}
+.empty{
+  grid-column:1/-1;text-align:center;
+  padding:35px;color:var(--muted);
+}
+.notice{
+  margin-top:25px;padding:15px;
+  border:1px solid var(--border);
+  border-radius:13px;color:var(--muted);
+  font-size:12px;line-height:1.7;
+}
+footer{
+  text-align:center;color:#64748b;
+  padding:25px;font-size:12px;
+  border-top:1px solid var(--border);
+}
+.bottom{
+  position:fixed;bottom:0;left:0;right:0;
+  display:flex;justify-content:space-around;
+  padding:12px 5px calc(12px + env(safe-area-inset-bottom));
+  background:#10192a;
+  border-top:1px solid var(--border);
+  z-index:20;
+}
+.bottom button{
+  background:none;border:0;color:#94a3b8;
+  font-size:11px;display:grid;gap:4px;
+  justify-items:center;
+}
+.bottom button.active{color:#60a5fa}
+.bottom span{font-size:19px}
+.hidden{display:none!important}
+@media(min-width:750px){
+  main{padding-top:35px}
+  .bottom{display:none}
+}
+@media(max-width:400px){
+  .channels{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats{gap:7px}
+  .stat{padding:12px}
+  .stat b{font-size:19px}
+  header{padding:13px 4%}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="brand">
+    <div class="logo">▶</div>
+    MYTV <span>STREAM</span>
+  </div>
+  <button class="install" id="installBtn">＋ Install App</button>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="live"><i class="dot"></i> MALAYSIA LIVE TV</div>
+    <h1>Hiburan Malaysia,<br>Di Hujung Jari.</h1>
+    <p>
+      Nikmati akses mudah kepada saluran TV Malaysia
+      melalui platform rasmi. Percuma untuk digunakan.
+    </p>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><b id="totalCount">0</b><small>Saluran TV</small></div>
+    <div class="stat"><b>24/7</b><small>Akses platform</small></div>
+    <div class="stat"><b>FREE</b><small>Penggunaan aplikasi</small></div>
+  </section>
+
+  <div class="section-head">
+    <h2 id="sectionTitle">Saluran TV</h2>
+  </div>
+
+  <input class="search" id="search"
+    placeholder="🔍 Cari saluran TV Malaysia...">
+
+  <div class="filters" id="filters">
+    <button class="filter active" data-cat="all">Semua</button>
+    <button class="filter" data-cat="rtm">RTM</button>
+    <button class="filter" data-cat="media">Media Prima</button>
+    <button class="filter" data-cat="news">Berita</button>
+    <button class="filter" data-cat="other">Lain-lain</button>
+    <button class="filter" data-cat="fav">Kegemaran ★</button>
+  </div>
+
+  <div class="channels" id="channels"></div>
+
+  <div class="notice">
+    <b>Maklumat siaran:</b><br>
+    MYTV STREAM ialah aplikasi direktori akses kepada
+    platform penyiar rasmi. Sesetengah saluran memerlukan
+    akaun, sambungan internet atau aplikasi penyedia.
+    Ketersediaan siaran tertakluk kepada penyedia masing-masing.
+    MYTV STREAM bukan pemilik kandungan atau penyiar rasmi.
+  </div>
+</main>
+
+<footer>
+  MYTV STREAM © 2026<br>
+  Dibangunkan untuk kemudahan rakyat Malaysia.
+</footer>
+
+<nav class="bottom">
+  <button class="active" data-nav="all"><span>⌂</span>Home</button>
+  <button data-nav="rtm"><span>📺</span>RTM</button>
+  <button data-nav="media"><span>🎬</span>Media</button>
+  <button data-nav="fav"><span>★</span>Favourite</button>
+</nav>
+
+<script>
+const channels = [
+ {name:"TV1",cat:"rtm",provider:"RTMKlik",icon:"📺",
+  url:"https://rtmklik.rtm.gov.my/"},
+ {name:"TV2",cat:"rtm",provider:"RTMKlik",icon:"📺",
+  url:"https://rtmklik.rtm.gov.my/"},
+ {name:"TV OKEY",cat:"rtm",provider:"RTMKlik",icon:"🌏",
+  url:"https://rtmklik.rtm.gov.my/"},
+ {name:"Berita RTM",cat:"news",provider:"RTMKlik",icon:"📰",
+  url:"https://rtmklik.rtm.gov.my/"},
+ {name:"Sukan RTM",cat:"rtm",provider:"RTMKlik",icon:"⚽",
+  url:"https://rtmklik.rtm.gov.my/"},
+ {name:"TV6",cat:"rtm",provider:"RTMKlik",icon:"🎞️",
+  url:"https://rtmklik.rtm.gov.my/"},
+ {name:"TV3",cat:"media",provider:"Tonton",icon:"📡",
+  url:"https://stream.tonton.com.my/"},
+ {name:"8TV",cat:"media",provider:"Tonton",icon:"🎬",
+  url:"https://stream.tonton.com.my/"},
+ {name:"TV9",cat:"media",provider:"Tonton",icon:"📺",
+  url:"https://stream.tonton.com.my/"},
+ {name:"DidikTV",cat:"media",provider:"Tonton",icon:"🎓",
+  url:"https://stream.tonton.com.my/"},
+ {name:"Awesome TV",cat:"other",provider:"Awesome TV",icon:"✨",
+  url:"https://awesometv.my/livetv/watch/awesome-tv/28"},
+ {name:"BERNAMA TV",cat:"news",provider:"BERNAMA",icon:"📰",
+  url:"https://www.bernama.com/tv/"}
+];
+
+const container=document.getElementById("channels");
+const search=document.getElementById("search");
+const title=document.getElementById("sectionTitle");
+const total=document.getElementById("totalCount");
+let category="all";
+let favorites=JSON.parse(localStorage.getItem("mytv-favs")||"[]");
+
+total.textContent=channels.length;
+
+function render(){
+ const query=search.value.toLowerCase().trim();
+ const filtered=channels.filter(c=>{
+  const matchCat=category==="all" ||
+   (category==="fav" ? favorites.includes(c.name) : c.cat===category);
+  return matchCat && (c.name.toLowerCase().includes(query) ||
+   c.provider.toLowerCase().includes(query));
+ });
+
+ title.textContent=category==="fav"?"Saluran Kegemaran":"Saluran TV";
+ container.innerHTML="";
+
+ if(!filtered.length){
+  container.innerHTML='<div class="empty">Tiada saluran dijumpai.</div>';
+  return;
+ }
+
+ filtered.forEach(c=>{
+  const fav=favorites.includes(c.name);
+  const card=document.createElement("article");
+  card.className="channel";
+  card.innerHTML=`
+   <div class="channel-art">
+    ${c.icon}
+    <small>OFFICIAL SOURCE</small>
+   </div>
+   <div class="channel-info">
+    <h3>${c.name}</h3>
+    <p>${c.provider}</p>
+    <div class="channel-actions">
+     <button class="watch">Tonton ↗</button>
+     <button class="fav ${fav?"selected":""}"
+      aria-label="Kegemaran">${fav?"★":"☆"}</button>
+    </div>
+   </div>`;
+  card.querySelector(".watch").addEventListener("click",()=>{
+   window.open(c.url,"_blank","noopener,noreferrer");
+  });
+  card.querySelector(".fav").addEventListener("click",()=>{
+   favorites=favorites.includes(c.name)
+    ?favorites.filter(x=>x!==c.name)
+    :[...favorites,c.name];
+   localStorage.setItem("mytv-favs",JSON.stringify(favorites));
+   render();
+  });
+  container.appendChild(card);
+ });
+}
+
+document.querySelectorAll(".filter").forEach(btn=>{
+ btn.addEventListener("click",()=>{
+  category=btn.dataset.cat;
+  document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  render();
+ });
+});
+
+search.addEventListener("input",render);
+
+document.querySelectorAll("[data-nav]").forEach(btn=>{
+ btn.addEventListener("click",()=>{
+  category=btn.dataset.nav;
+  document.querySelectorAll(".filter").forEach(b=>{
+   b.classList.toggle("active",b.dataset.cat===category);
+  });
+  document.querySelectorAll("[data-nav]").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  render();
+  window.scrollTo({top:300,behavior:"smooth"});
+ });
+});
+
+let installPrompt=null;
+window.addEventListener("beforeinstallprompt",e=>{
+ e.preventDefault();
+ installPrompt=e;
+ document.getElementById("installBtn").classList.remove("hidden");
+});
+document.getElementById("installBtn").addEventListener("click",async()=>{
+ if(installPrompt){
+  installPrompt.prompt();
+  await installPrompt.userChoice;
+  installPrompt=null;
+ }else{
+  alert("Untuk install: buka menu Chrome ⋮ dan pilih Add to Home screen atau Install app.");
+ }
+});
+
+if("serviceWorker" in navigator){
+ window.addEventListener("load",()=>{
+  navigator.serviceWorker.register("./sw.js").catch(console.error);
+ });
+}
+render();
+</script>
+</body>
+</html>
